@@ -5,14 +5,14 @@
 
 const Math = {
 	sum: (arr) => arr.reduce((total, amount) => total + amount),
-	avg: (arr) => Math.sum(arr) / arr.length
+	avg: (arr) => Math.sum(arr) / arr.length,
 }
 
 const linearRegression = (data) => {
 	let
-		// average of independent variable
+		// average of independent variable x
 		x_avg,
-		// average of dependent variable
+		// average of dependent variable y
 		y_avg,
 		// numerator : Sum of (xi - x)(yi - y)
 		num,
@@ -21,7 +21,9 @@ const linearRegression = (data) => {
 		// slope
 		m,
 		// intercept
-		b
+		b,
+		// the sum of squared error: sum of (y - (mx + b))
+		sse
 	
 	x_avg = Math.avg(data.x)
 	
@@ -35,8 +37,11 @@ const linearRegression = (data) => {
 	
 	b = y_avg - m * x_avg
 	
+	sse = Math.sum(data.y.map((y, i) => (y - (m * data.x[i] + b)) ** 2))
+	
 	// print result
-	const msg = `slope: ${m}, intercept: ${b}, y=${m}x + ${b}`
+	const msg = `slope: ${m}, intercept: ${b}, y=${m}x + ${b}, SSE: ${sse}`
+	
 	return msg
 }
 
@@ -51,7 +56,6 @@ const linearRegression = (data) => {
  
  const result = linearRegression(trainingSet)
  console.log(result)
- // slope: 6.914285714285715, intercept: 16.971428571428568, y=6.914285714285715x + 16.971428571428568
+ // slope: 6.914285714285715, intercept: 16.971428571428568, y=6.914285714285715x + 16.971428571428568, SSE: 115.37142857142848
  */
-
 
